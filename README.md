@@ -1,15 +1,16 @@
 ========================================
 Confiden
 ========================================
-The best project ever, developed by Team Chupacabra:
-Alison Bischak, Taylor Davis, Nurgul Kantarbayeva, Taha Mehdi, Hayley Schluter, Michael Xie
-
-========================================
 Overview:
 Confiden is a place for people to improve thembelves by building their confidence levels, no matter their current perceived level of confidence. Users must complete challenges, A.K.A. "Missions" with the intention of building a solid foundation of healthy confidence. Confiden has the potential to assist anyone willing to put the work towards changing their lives for the better, gradually leaving their comfort zones and becoming more independent, self-assured individuals.
 
 Our Mission:
 To help guide individuals who feel that they lack confidence and are looking to build theirs by providing the resources and opportunities to do so in a safe and fun way.
+
+========================================
+Access to Database:
+1. Create new database entitled "test1"
+2. Import "test1.sql"
 
 ========================================
 Privacy Policy: 
@@ -66,11 +67,6 @@ We reserve the right to use the email address we have stored for your user accou
 
 Notification of Changes
 The user may or may not be notified of changes made to the Terms and Conditions of this website. We reserve the right to change them at any time as we see fit. Your continued use of the site signifies your acceptance of these new Terms and Conditions.
-
-========================================
-Access to Database:
-1. Create new database entitled "test1"
-2. Import "test1.sql"
 
 ========================================
 Thank you for visiting Confiden!
