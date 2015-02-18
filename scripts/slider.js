@@ -21,7 +21,7 @@
 					if( 6 == curclicked )
 						curclicked = 0;
 					
-				}, 3000);
+				}, 10000);
 			};
 			
 			$(document).ready(function($){
