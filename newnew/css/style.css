@@ -439,7 +439,7 @@ ul.callbacks_tabs.callbacks1_tabs {
 	background-color: #bf3f3e;
 	outline: 0px;
 }
-.form_details input[type="text"], .form_details textarea {
+.form_details input[type="text"], .form_details textarea, .form_details input[type="password"] {
 	padding: 10px;
 	width: 65%;
 	font-size: 1em;
@@ -455,7 +455,7 @@ ul.callbacks_tabs.callbacks1_tabs {
 .form_details textarea:hover {
 	border: 1px solid #777;
 }
-.form_details input[type="text"]:hover {
+.form_details input[type="text"]:hover, .form_details input[type="password"], {
 	border: 1px solid #777;
 }
 .form_details textarea {
@@ -491,6 +491,21 @@ ul.callbacks_tabs.callbacks1_tabs {
 address {
 	margin-top: 1em;
 }
+
+/* simple css-based tooltip */
+.tooltip {
+    background-color:#000;
+    border:1px solid #fff;
+    padding:10px 15px;
+    width:200px;
+    display:none;
+    color:#fff;
+    text-align:left;
+    font-size:12px;
+ 
+    /* outline radius for mozilla/firefox only */
+    -moz-box-shadow:0 0 10px #000;
+    -webkit-box-shadow:0 0 10px #000;
 }
 
 @media (max-width:1366px) {
