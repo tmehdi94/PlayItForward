@@ -51,6 +51,13 @@ if ($loggedin) {
 </div>
 <div class="contact">
   <div class="container">
+	<?php if ( isset($_GET['success']) && $_GET["success"] == 1) { ?>
+		<div class="col-md-6 col-md-offset-3 alert alert-success" role="alert">
+			<strong>Congratulations! You have registered successfully! Please login below.</strong>
+		</div>
+	<?php
+	}
+	?>
     <div class="col-md-6">
       <h3>Login</h3>
 	  <div class="alert alert-info" role="alert">

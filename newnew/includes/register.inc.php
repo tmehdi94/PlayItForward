@@ -63,12 +63,12 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
 		);
 		$id = $db->insert ('users', $data);
 		if ($id) {
-			header('Location: ./register_success.php');
+			header('Location: ./login.php?success=1');
 		}
 		else {
 			header('Location: ../error.php?err=Registration failure: INSERT');
 		}
-        header('Location: ./register_success.php');
+        header('Location: ./login.php?success=1');
     }
 }
 
