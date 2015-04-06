@@ -179,10 +179,18 @@ function navigation($currentpage, $loggedin) {
 	$nav = "";
 	if ($currentpage == "index") {
 		$nav .= '<li class="active"><a href="index.php">Home</a></li>';
-	}
-	else {
+	}	
+    else {
 		$nav .= '<li><a href="index.php">Home</a></li>';
 	}
+    
+    if ($currentpage == "FAQ") {
+        $nav .= '<li class="active"><a href="FAQ.php">FAQ</a></li>';
+	}
+    else {
+		$nav .= '<li><a href="FAQ.php">FAQ</a></li>';
+	}
+    
 	if ($loggedin) {
 		if ($currentpage == "account") {
 			$nav .= '<li class="active"><a href="account.php">Account</a></li>';
