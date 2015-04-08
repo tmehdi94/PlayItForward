@@ -1,3 +1,14 @@
+
+<?php
+include_once 'includes/dbConnect.php';
+include_once 'includes/functions.php';
+
+sec_session_start();
+
+$loggedin = login_check($db);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
