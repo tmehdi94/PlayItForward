@@ -35,6 +35,13 @@ $loggedin = login_check($db);
     </div>
   </div>
 </nav>
+<div id="section_header">
+  <div class="container">
+    <h2>
+		<span>F</span>requently <span>A</span>sked <span>Q</span>uestions</span>
+	</h2>
+  </div>
+</div>
 <!-- What we do Section -->
 <div id = "about_section_1">
     <div class="container">
@@ -64,8 +71,6 @@ $loggedin = login_check($db);
             challenging early missions, the kinds you would take on at later levels. 
             Doing this earns you bonus experience so you can pass by the earlier levels 
             faster if you want.</p>
-            <br>
-            <br>
         </div>
         <div class="row">
             <h3>These missions have gotten a little tough. What should I do?</h3>
