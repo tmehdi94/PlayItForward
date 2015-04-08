@@ -15,21 +15,20 @@
 <script src="js/jquery.min.js"></script>
 </head>
 <body>
+
 <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand" href="index.html"><i class="fa fa-sun-o"></i> Colibri</a> </div>
+      <a class="navbar-brand" href="index.php"><i class="fa fa-sun-o"></i> Play It Forward</a> </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About us</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li class="active"><a href="contact.html">Contact us</a></li>
+    <?php echo navigation("preferences", $loggedin); ?>
       </ul>
     </div>
   </div>
 </nav>
+
 <div id="section_header">
   <div class="container">
     <h2><span>Preferences</span> </h2>
