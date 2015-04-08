@@ -11,7 +11,7 @@ $loggedin = login_check($db);
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Play It Forward | Account</title>
+<title>Play It Forward | Overview</title>
 <!-- Bootstrap -->
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
 <!-- Font Awesome  -->

@@ -193,13 +193,37 @@ function navigation($currentpage, $loggedin) {
     
 	if ($loggedin) {
 		if ($currentpage == "account") {
-			$nav .= '<li class="active"><a href="account.php">Account</a></li>';
+			$nav .= '<li class="active"><a href="overview.php">Overview</a></li>';
 		}
 		else {
-			$nav .= '<li><a href="account.php">Account</a></li>';
+			$nav .= '<li><a href="overview.php">Overview</a></li>';
 		}
+        
+        if ($currentpage == "missions") {
+        $nav .= '<li class="active"><a href="missions.php">Missions</a></li>';
+        }
+        else {
+            $nav .= '<li><a href="missions.php">Missions</a></li>';
+        }
+        
+        if ($currentpage == "journal") {
+        $nav .= '<li class="active"><a href="journal.php">Journal</a></li>';
+        }
+        else {
+            $nav .= '<li><a href="journal.php">Journal</a></li>';
+        }
+
+        if ($currentpage == "preferences") {
+        $nav .= '<li class="active"><a href="preferences.php">Preferences</a></li>';
+        }
+        else {
+            $nav .= '<li><a href="preferences.php">Preferences</a></li>';
+        }        
+        
 		$nav .= '<li><a href="includes/logout.php">Logout</a></li>';
+        
 	} else {
+    
 		if ($currentpage == "login") { 
 			$nav .= '<li class="active"><a href="login.php">Login/Register</a></li>';
 		}
@@ -207,5 +231,6 @@ function navigation($currentpage, $loggedin) {
 			$nav .= '<li><a href="login.php">Login/Register</a></li>';
 		}
 	}
+
 	return $nav;
 }
