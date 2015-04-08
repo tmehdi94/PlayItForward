@@ -30,7 +30,7 @@ $loggedin = login_check($db);
       <a class="navbar-brand" href="index.php"><i class="fa fa-sun-o"></i> Play It Forward</a> </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <?php echo navigation("overview", $loggedin); ?>
+        <?php echo navigation("account", $loggedin); ?>
       </ul>
     </div>
   </div>

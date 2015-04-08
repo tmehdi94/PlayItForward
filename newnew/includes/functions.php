@@ -192,7 +192,7 @@ function navigation($currentpage, $loggedin) {
 	}
     
 	if ($loggedin) {
-		if ($currentpage == "account") {
+		if ($currentpage == "overview") {
 			$nav .= '<li class="active"><a href="overview.php">Overview</a></li>';
 		}
 		else {
