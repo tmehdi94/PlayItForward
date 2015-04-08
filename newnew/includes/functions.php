@@ -45,8 +45,7 @@ function login($username, $password, $db) {
                // Account is locked 
                // TO DO: Send an email to user saying their account is locked
                return false;
-        }
-		else {
+        } else {
 		
 			// Check if the password in the database matches
 			// the password the user submitted.
@@ -68,8 +67,7 @@ function login($username, $password, $db) {
 				
 				// Login successful!
 				return true;
-              }
-			  else {
+              } else {
 				// Password is not correct
                 // We record this attempt in the database
                 $now = time();
@@ -78,8 +76,7 @@ function login($username, $password, $db) {
 				return false;
               }
         }
-	}
-	else {
+	} else {
 		// No user exists.
         return false;
     }
@@ -98,8 +95,7 @@ function checkbrute($uid, $db) {
 	// If there have been more than 5 failed logins
 	if ($db->count > 5) {
 	    return true;
-    }
-	else {
+    } else {
             return false;
     }
 }
@@ -126,19 +122,16 @@ function login_check($db) {
 			if ($login_check == $login_string) {
 				// Logged In!!!! 
 				return true;
-			} 
-			else {
+			} else {
 				// Not logged in 
 				return false;
 				
 			}
-		}
-		else {
+		} else {
 			// Not logged in 
 			return false;
 		}
-    }
-	else {
+    } else {
 		// Not logged in 
 		return false;
     }
@@ -179,44 +172,38 @@ function navigation($currentpage, $loggedin) {
 	$nav = "";
 	if ($currentpage == "index") {
 		$nav .= '<li class="active"><a href="index.php">Home</a></li>';
-	}	
-    else {
+	} else {
 		$nav .= '<li><a href="index.php">Home</a></li>';
 	}
     
     if ($currentpage == "FAQ") {
         $nav .= '<li class="active"><a href="FAQ.php">FAQ</a></li>';
-	}
-    else {
+	} else {
 		$nav .= '<li><a href="FAQ.php">FAQ</a></li>';
 	}
     
 	if ($loggedin) {
 		if ($currentpage == "overview") {
 			$nav .= '<li class="active"><a href="overview.php">Overview</a></li>';
-		}
-		else {
+		} else {
 			$nav .= '<li><a href="overview.php">Overview</a></li>';
 		}
         
         if ($currentpage == "missions") {
         $nav .= '<li class="active"><a href="missions.php">Missions</a></li>';
-        }
-        else {
+        } else {
             $nav .= '<li><a href="missions.php">Missions</a></li>';
         }
         
         if ($currentpage == "journal") {
         $nav .= '<li class="active"><a href="journal.php">Journal</a></li>';
-        }
-        else {
+        } else {
             $nav .= '<li><a href="journal.php">Journal</a></li>';
         }
 
         if ($currentpage == "preferences") {
         $nav .= '<li class="active"><a href="preferences.php">Preferences</a></li>';
-        }
-        else {
+        } else {
             $nav .= '<li><a href="preferences.php">Preferences</a></li>';
         }        
         
@@ -226,8 +213,7 @@ function navigation($currentpage, $loggedin) {
     
 		if ($currentpage == "login") { 
 			$nav .= '<li class="active"><a href="login.php">Login/Register</a></li>';
-		}
-		else {
+		} else {
 			$nav .= '<li><a href="login.php">Login/Register</a></li>';
 		}
 	}
