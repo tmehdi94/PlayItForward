@@ -231,5 +231,6 @@ function navigation($currentpage, $loggedin) {
 			$nav .= '<li><a href="login.php">Login/Register</a></li>';
 		}
 	}
+
 	return $nav;
 }

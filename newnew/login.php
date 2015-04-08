@@ -60,8 +60,20 @@ if ($loggedin) {
 	?>
     <div class="col-md-6">
       <h3>Login</h3>
-	  <div class="alert alert-info" role="alert">
+	  
+	  <?php if ( isset($_GET['error']) && $_GET["error"] == 1) { ?>
+			<div class="alert alert-danger" role="alert">
+			<strong>Login failed!</strong> Please check your credentials<br/>
+			</div>
+		<?php
+        } else {
+        ?>
+			<div class="alert alert-info" role="alert">
 	  <strong>Welcome back!</strong> Please login with your information here.</div>
+			
+		<?php
+		} 
+		?>
       <form id="login_form" action="includes/processLogin.php" method="post" name="login_form">
         <div class="form_details">
           <input name="username" type="text" class="text" value="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}" title="Enter your username">
