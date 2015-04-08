@@ -11,7 +11,7 @@ $loggedin = login_check($db);
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Play It Forward | Missions</title>
+<title>Play It Forward | Overview</title>
 <!-- Bootstrap -->
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
 <!-- Font Awesome  -->
@@ -30,7 +30,7 @@ $loggedin = login_check($db);
       <a class="navbar-brand" href="index.php"><i class="fa fa-sun-o"></i> Play It Forward</a> </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <?php echo navigation("overview", $loggedin); ?>
+        <?php echo navigation("account", $loggedin); ?>
       </ul>
     </div>
   </div>
