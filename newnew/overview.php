@@ -95,7 +95,7 @@ $user = $db->getOne("users");
         <h3>Most Recent Journal Entry:</h3>
 		<!-- TODO: Write function to output most recent journal entry -->
         <p>Lorem ipsum dolor sit amet, sem sodales in sapien, sed risus. Pharetra ullamcorper, maecenas egestas, quis pellentesque proin eget donec nam libero, eget egestas velit, mi nulla feugiat elit suscipit sed. Elit eget mauris feugiat. Nulla pharetra pharetra pulvinar est deserunt scelerisque, posuere orci ac nulla vivamus pede, dolor luctus commodo etiam est, convallis risus pede aliquam in ac. Scelerisque eu quis dictumst in urna consequat.
-		<br/><a href="journals.php"><b>View Journal</b></a></p>
+		<br/><a href="journal.php"><b>View Journal</b></a></p>
       </div>
     </div>
   </div>
