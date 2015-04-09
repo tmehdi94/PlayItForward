@@ -5,6 +5,16 @@ include_once 'includes/functions.php';
 sec_session_start();
 
 $loggedin = login_check($db);
+
+if (!$loggedin) {
+	header("Location: login.php");
+}
+
+// localize variables
+$db->where ("username", $_SESSION['username']);
+$user = $db->getOne("users");
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,79 +47,56 @@ $loggedin = login_check($db);
 </nav>
 <div id="section_header">
   <div class="container">
-    <h2><span>Welcome</span> <?php echo htmlentities($_SESSION['username']); ?>!</h2>
+    <h2><span>Welcome</span> <?php echo htmlentities($user['username']); ?>!</h2>
   </div>
 </div>
 <div id="about_section_1">
   <div class="container">
     <div class="row">
-      <div class="col-lg-6"> <img src="images/about2.jpg" class="img-responsive" alt=" "> </div>
-      <div class="col-lg-6">
-	   <?php if ($loggedin) : ?>
-            <p></p>
-            <p>
-				You can only see this if you're logged in :D
-            </p>
-            <p>Return to <a href="login.php">login page</a></p>
-        <?php else : ?>
-            <p>
-                <span class="error">You are not authorized to access this page.</span> Please <a href="login.php">login</a>.
-            </p>
-        <?php 
-		header("Location: login.php");
-		endif; ?>
-        <h3>Who we are</h3>
-        <p >Lorem ipsum dolor sit amet, sem sodales in sapien, sed risus. Pharetra ullamcorper, maecenas egestas, quis pellentesque proin eget donec nam libero, eget egestas velit, mi nulla feugiat elit suscipit sed. Elit eget mauris feugiat. Nulla pharetra pharetra pulvinar est deserunt scelerisque, posuere orci ac nulla vivamus pede, dolor luctus commodo etiam est, convallis risus pede aliquam in ac. Scelerisque eu quis dictumst in urna consequat.</p>
-        <h3>Our history</h3>
-        <p>Lorem ipsum dolor sit amet, sem sodales in sapien, sed risus. Pharetra ullamcorper, maecenas egestas, quis pellentesque proin eget donec nam libero, eget egestas velit, mi nulla feugiat elit suscipit sed. Elit eget mauris feugiat. Nulla pharetra pharetra pulvinar est deserunt scelerisque, posuere orci ac nulla vivamus pede, dolor luctus commodo etiam est, convallis risus pede aliquam in ac. Scelerisque eu quis dictumst.</p>
+      <div class="col-lg-3 col-xs-3 mix"> 
+		<img src=
+		<?php if ($user['avatar'] == NULL) { ?>
+				"images/default-avatar.png" 
+		<?php } else { ?>
+				<!-- TODO: Change to URL of user avatar-->
+				"[the user image]" 
+		<?php } ?>
+		class="img-responsive" alt="avatar" />
+		<br/>
+		<h3 class="text-center"><b><?php echo $user['username']; ?></b></h3>
+	  </div>
+      <div class="col-lg-9 col-xs-6 mix">
+		<h3>Current Level: <?php echo $user['level']; ?></h3>
+		<h3>Experience Needed:</h3> 
+		<!-- TODO: change 60 to actual value -->
+		<div class="progress progress-striped">
+			<div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
+				<span>20%</span>
+			</div>
+		</div>
+		<h3>Accepted Missions:</h3>
+			<!-- TODO: Write function to output accepted missions -->
+		    <table class="table">
+			<tbody>
+				<tr class="warning">
+					<td>Mission 1</td>
+				</tr>
+				<tr class="active">
+					<td>Mission 2</td>
+				</tr>
+				<tr class="warning">
+					<td>Mission 3</td>
+				</tr>
+				<tr class="active">
+					<td>Mission 4</td>
+				</tr>
+			</tbody>
+			</table>
+        <h3>Most Recent Journal Entry:</h3>
+		<!-- TODO: Write function to output most recent journal entry -->
+        <p>Lorem ipsum dolor sit amet, sem sodales in sapien, sed risus. Pharetra ullamcorper, maecenas egestas, quis pellentesque proin eget donec nam libero, eget egestas velit, mi nulla feugiat elit suscipit sed. Elit eget mauris feugiat. Nulla pharetra pharetra pulvinar est deserunt scelerisque, posuere orci ac nulla vivamus pede, dolor luctus commodo etiam est, convallis risus pede aliquam in ac. Scelerisque eu quis dictumst in urna consequat.
+		<br/><a href="journals.php"><b>View Journal</b></a></p>
       </div>
-    </div>
-  </div>
-</div>
-<!-- Why choose us Section -->
-<div id="section_header">
-  <h2><span>Why</span> choose us</h2>
-</div>
-<div id="about_section_2">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6">
-        <h4><i class="fa fa-graduation-cap fa-2x pull-left"></i> Lorem ipsum dolor sit amet, consectetuer adipiscing elit</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.</p>
-      </div>
-      <div class="col-lg-6">
-        <h4><i class="fa fa-trophy fa-2x pull-left"></i> Cum socis natoque penatibus et magnis dis</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.</p>
-      </div>
-      <div class="col-lg-6">
-        <h4><i class="fa fa-globe fa-2x pull-left"></i> Aenean commodo ligula eget dolor aenean massa</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.</p>
-      </div>
-      <div class="col-lg-6">
-        <h4><i class="fa fa-language fa-2x pull-left"></i> Ipsum dolor sit amet, consectetuer adipiscing elit</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.</p>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Our clients Section -->
-<div id="section_header">
-  <h2><span>Our</span> clients</h2>
-</div>
-<div id="clients">
-  <div class="container">
-    <div class="row centered">
-      <div class="col-lg-8 col-lg-offset-2">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad.</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-2"> <img src="images/client1.jpg" class="img-responsive"> </div>
-      <div class="col-lg-2"> <img src="images/client2.jpg" class="img-responsive"> </div>
-      <div class="col-lg-2"> <img src="images/client3.jpg" class="img-responsive"> </div>
-      <div class="col-lg-2"> <img src="images/client4.jpg" class="img-responsive"> </div>
-      <div class="col-lg-2"> <img src="images/client5.jpg" class="img-responsive"> </div>
-      <div class="col-lg-2"> <img src="images/client6.jpg" class="img-responsive"> </div>
     </div>
   </div>
 </div>

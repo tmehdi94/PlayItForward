@@ -7,7 +7,7 @@ sec_session_start();
 $loggedin = login_check($db);
 
 if ($loggedin) {
-	header("Location: account.php");
+	header("Location: overview.php");
 }
 ?>
 <!DOCTYPE html>
