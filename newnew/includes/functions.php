@@ -259,17 +259,17 @@ function getAssignedMissions($username, $db){
 	if ($db->count <= 3) {
 		assignMissions($userId, $db);
 	}
-	$assignedMissions = $db->rawQuery("SELECT m.level, m.title, m.description FROM missions m, user_assignedmissions uam WHERE m.mid = uam.mid AND uam.uid = ?", Array ($userId));
+	$assignedMissions = $db->rawQuery("SELECT m.mid, m.level, m.title, m.description FROM missions m, user_assignedmissions uam WHERE m.mid = uam.mid AND uam.uid = ?", Array ($userId));
 	$format = '<tr>
     <td>%d</td>
     <td>%s</td>
     <td>%s</td>
-    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><a href="#edit" data-toggle="modal" class="btn btn-primary btn-xs" data-title="Edit" data-target="#edit" data-book-id="%d" ><span class="glyphicon glyphicon-pencil"></span></a></p></td>
     <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
     </tr>';
 	$returnString = "";
 	foreach ($assignedMissions as $mission){
-		$returnString .= sprintf($format, $mission['level'], $mission['title'], $mission['description']);
+		$returnString .= sprintf($format, $mission['level'], $mission['title'], $mission['description'], $mission['mid']);
 	}
 	return $returnString;
 }

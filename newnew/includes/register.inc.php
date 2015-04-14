@@ -1,7 +1,7 @@
 <?php
 include_once 'dbConnect.php';
 $error_msg = "";
- 
+
 if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     // Sanitize and validate the data passed in
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);

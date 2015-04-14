@@ -1,10 +1,14 @@
 <?php
 include_once 'includes/dbConnect.php';
 include_once 'includes/functions.php';
- 
+include_once 'includes/missions.inc.php'; 
+
 sec_session_start();
 
 $loggedin = login_check($db);
+if(!$loggedin) {
+	header("Location: login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +25,7 @@ $loggedin = login_check($db);
 <!-- Custom CSS -->
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 <script src="js/jquery.min.js"></script>
+<script src="js/missions.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -55,6 +60,7 @@ $loggedin = login_check($db);
 
               <table id="mytable" class="table table-bordred table-striped">
                    <thead>
+				   
                    <th>Level</th>
                     <th>Title</th>
                      <th>Description</th>
@@ -74,7 +80,6 @@ $loggedin = login_check($db);
   </div>
 </div>
 
-
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
       <div class="modal-dialog">
     <div class="modal-content">
@@ -83,21 +88,27 @@ $loggedin = login_check($db);
         <h4 class="modal-title custom_align" id="Heading">Journal Entry</h4>
       </div>
           <div class="modal-body">
-          <div class="form-group">
-        <input class="form-control " type="text" placeholder="Mohsin">
+          <form action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>" 
+                method="post" 
+                name="mission_complete"
+				id="mission_complete">
+        <div class="form-group">        
+        <input name="title" id="title" class="form-control " type="text" placeholder="Give your journal entry a title...">
         </div>
         <div class="form-group">
-        
-        <input class="form-control " type="text" placeholder="Give your journal entry a title...">
-        </div>
-        <div class="form-group">
-        <textarea rows="2" class="form-control" placeholder="Write about your mission..."></textarea>
+        <textarea name="entry" id="entry" rows="2" class="form-control" placeholder="Write about your mission..."></textarea>
+		<input name="missionId" id="missionId" class="form-control " type="hidden" value="">
+		<input name="userId" id="userId" class="form-control " type="hidden" value="<?php echo $_SESSION['uid']; ?>">
+		</div>
+		 <div class="modal-footer ">
+		<button type="submit" class="btn btn-warning btn-lg" style="width: 100%;">Save</button>
     
         
         </div>
+		</form>
       </div>
-          <div class="modal-footer ">
-        <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+         
+        
       </div>
         </div>
     <!-- /.modal-content --> 
