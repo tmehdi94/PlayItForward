@@ -11,7 +11,7 @@ $loggedin = login_check($db);
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Play It Forward | Overview</title>
+<title>Play It Forward | Missions</title>
 <!-- Bootstrap -->
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
 <!-- Font Awesome  -->
@@ -37,39 +37,101 @@ $loggedin = login_check($db);
 </nav>
 <div id="section_header">
   <div class="container">
-    <h2><span>Welcome</span> <?php echo htmlentities($_SESSION['username']); ?>!</h2>
+    <h2><span>Missions</span></h2>
   </div>
 </div>
-<div id="about_section_1">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6"> <img src="images/about2.jpg" class="img-responsive" alt=" "> </div>
-      <div class="col-lg-6">
-	   <?php if ($loggedin) : ?>
-            <p></p>
-            <p>
-				You can only see this if you're logged in :D
-            </p>
-            <p>Return to <a href="login.php">login page</a></p>
-        <?php else : ?>
-            <p>
-                <span class="error">You are not authorized to access this page.</span> Please <a href="login.php">login</a>.
-            </p>
-        <?php 
-		header("Location: login.php");
-		endif; ?>
-        <h3>Who we are</h3>
-        <p >Lorem ipsum dolor sit amet, sem sodales in sapien, sed risus. Pharetra ullamcorper, maecenas egestas, quis pellentesque proin eget donec nam libero, eget egestas velit, mi nulla feugiat elit suscipit sed. Elit eget mauris feugiat. Nulla pharetra pharetra pulvinar est deserunt scelerisque, posuere orci ac nulla vivamus pede, dolor luctus commodo etiam est, convallis risus pede aliquam in ac. Scelerisque eu quis dictumst in urna consequat.</p>
-        <h3>Our history</h3>
-        <p>Lorem ipsum dolor sit amet, sem sodales in sapien, sed risus. Pharetra ullamcorper, maecenas egestas, quis pellentesque proin eget donec nam libero, eget egestas velit, mi nulla feugiat elit suscipit sed. Elit eget mauris feugiat. Nulla pharetra pharetra pulvinar est deserunt scelerisque, posuere orci ac nulla vivamus pede, dolor luctus commodo etiam est, convallis risus pede aliquam in ac. Scelerisque eu quis dictumst.</p>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
+<div class="container">
+  <div class="row">
+    
+        
+        <div class="col-md-12">
+        <h4>Mission Assignments</h4>
+        <div class="table-responsive">
+
+              <table id="mytable" class="table table-bordred table-striped">
+                   <thead>
+                   <th>Level</th>
+                    <th>Title</th>
+                     <th>Description</th>
+                      <th>Complete</th>
+                       <th>Give up</th>
+                   </thead>
+    <tbody>
+    <?php echo getAssignedMissions($_SESSION['username'], $db); ?>
+    </tbody>
+        
+</table>
+
+<div class="clearfix"></div>                
+            </div>
+            
+        </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Journal Entry</h4>
       </div>
-    </div>
+          <div class="modal-body">
+          <div class="form-group">
+        <input class="form-control " type="text" placeholder="Mohsin">
+        </div>
+        <div class="form-group">
+        
+        <input class="form-control " type="text" placeholder="Give your journal entry a title...">
+        </div>
+        <div class="form-group">
+        <textarea rows="2" class="form-control" placeholder="Write about your mission..."></textarea>
+    
+        
+        </div>
+      </div>
+          <div class="modal-footer ">
+        <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+      </div>
+        </div>
+    <!-- /.modal-content --> 
   </div>
-</div>
-<!-- Why choose us Section -->
-<div id="section_header">
-  <h2><span>Why</span> choose us</h2>
-</div>
+      <!-- /.modal-dialog --> 
+    </div>
+    
+    
+    
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Give up?</h4>
+      </div>
+      <div class="modal-body">
+       
+       <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to give up on this mission?</div>
+       
+      </div>
+        <div class="modal-footer ">
+          <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+        </div>
+    </div>
+    <!-- /.modal-content --> 
+  </div>
+      <!-- /.modal-dialog --> 
+    </div>
+<!-- END testing  -PHIL -->
+
+
+
 <div id="about_section_2">
   <div class="container">
     <div class="row">
@@ -129,7 +191,5 @@ $loggedin = login_check($db);
     </div>
   </div>
 </div>
-<!-- Bootstrap core JavaScript --> 
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 </html>
