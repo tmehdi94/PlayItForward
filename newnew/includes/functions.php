@@ -219,6 +219,37 @@ function navigation($currentpage, $loggedin) {
 	return $nav;
 }
 
+
+function get_level_exp($currentlevel) { //Used as size of exp bar
+    return 1000*($currentlevel+1); //Tweakable
+}
+
+function get_exp_progress($exptotal, $currentlevel) { //Exp for current level = total exp - sum of all previous levels 
+    return $exptotal - ($currentlevel)*($currentlevel + 1)*500; //Tweakable
+}
+
+function get_exp_percent($exptotal, $currentlevel) {
+    return 100 * get_exp_progress($exptotal, $currentlevel)/get_level_exp($currentlevel);
+}
+
+function get_reward_exp($missionlevel, $userlevel){
+    $range = 2; //Tweakable
+    if ($userlevel - $range > $missionlevel || $userlevel + $range < $missionlevel){
+		return 0;
+	}else{
+		return floor(sqrt($missionlevel)*1000);
+	}
+}
+
+function test_reward_exp($userlevel){ //This is only for debugging. Outputs expected exp rewards for missions
+    for($x = 1; $x <= 10; $x++){
+        if(get_reward_exp($x, $userlevel) == 0){
+            echo "Level ".$userlevel." cannot take on level ".$x." quests<br>";
+        } else {
+            echo "You will receive ".get_reward_exp($x, $userlevel)." experience from completing a level ".$x." quest<br>";
+        }
+    }        
+}
 function getAssignedMissions($username, $db){
 	// Get UserId:
 	$user = $db->rawQuery("SELECT u.uid FROM users u WHERE u.username = ? LIMIT 1", Array ($username));
