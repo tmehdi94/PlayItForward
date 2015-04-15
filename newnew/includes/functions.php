@@ -250,6 +250,7 @@ function test_reward_exp($userlevel){ //This is only for debugging. Outputs expe
         }
     }        
 }
+
 function getAssignedMissions($username, $db){
 	// Get UserId:
 	$user = $db->rawQuery("SELECT u.uid FROM users u WHERE u.username = ? LIMIT 1", Array ($username));
@@ -264,21 +265,43 @@ function getAssignedMissions($username, $db){
     <td>%d</td>
     <td>%s</td>
     <td>%s</td>
-    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><a href="#edit" data-toggle="modal" class="btn btn-primary btn-xs" data-title="Edit" data-target="#edit" data-book-id="%d" ><span class="glyphicon glyphicon-pencil"></span></a></p></td>
-    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Complete Mission"><a href="#edit" data-toggle="modal" class="btn btn-primary btn-xs" data-title="Edit" data-target="#edit" data-book-id="%d" onclick="setMissionId(%d)" ><span class="glyphicon glyphicon-pencil"></span></a></p></td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Give Up"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
     </tr>';
 	$returnString = "";
 	foreach ($assignedMissions as $mission){
-		$returnString .= sprintf($format, $mission['level'], $mission['title'], $mission['description'], $mission['mid']);
+		$returnString .= sprintf($format, $mission['level'], $mission['title'], $mission['description'], $mission['mid'], $mission['mid']);
 	}
 	return $returnString;
 }
 
-// Will improve later. For now, just assign first 3 missions
+// Will improve later. For now, just assign missions the user hasn't been assigned yet
 // TODO: 1) Make it so completed non-repeatable missions aren't assigned
 //       2) Assign missions of interesting levels related to the user's level
 function assignMissions($userId, $db) {
-	$insertionStatus = $db->rawQuery(" INSERT INTO `user_assignedmissions`(`uid`, `mid`, `assignDate`) VALUES (?, 1, NOW())", Array ($userId));
-	$insertionStatus = $db->rawQuery(" INSERT INTO `user_assignedmissions`(`uid`, `mid`, `assignDate`) VALUES (?, 2, NOW())", Array ($userId));
-	$insertionStatus = $db->rawQuery(" INSERT INTO `user_assignedmissions`(`uid`, `mid`, `assignDate`) VALUES (?, 3, NOW())", Array ($userId));
+	try {
+		$db->startTransaction();
+		// Finds all mission ids that are not already assigned or completed
+		$query = "SELECT m.mid
+				FROM missions m
+				WHERE m.mid NOT IN
+				(
+				    SELECT m.mid
+					FROM missions m, user_assignedmissions uam
+					WHERE (m.mid = uam.mid AND uam.uid = ?) 
+				    UNION
+				    SELECT m.mid
+				    FROM missions m, user_completedmissions ucm
+				    WHERE (m.mid = ucm.mid AND ucm.uid = ?) 
+				)";
+		$unassignedMissions = $db->rawQuery($query, Array ($userId, $userId));
+		$insertQuery = "INSERT INTO `user_assignedmissions`(`uid`, `mid`, `assignDate`) VALUES (?, ?, NOW())";
+		for ($i = 0; $i < 3; $i++) {
+			$insertionStatus = $db->rawQuery($insertQuery, Array ($userId, $unassignedMissions[$i]['mid']));
+		}
+		$db->commit();
+	} catch (Exception $e) {
+		print "Database error!";
+		$db->rollback();
+	}
 }

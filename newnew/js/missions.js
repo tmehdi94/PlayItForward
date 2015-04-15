@@ -3,3 +3,7 @@ $(document).ready(function(){
 
 });
 
+function setMissionId(missionId){
+	textInput = document.getElementById("missionId");
+	textInput.value = missionId;
+}

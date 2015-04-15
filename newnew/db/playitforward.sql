@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2015 at 08:09 PM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Generation Time: Apr 15, 2015 at 08:44 PM
+-- Server version: 5.6.21
+-- PHP Version: 5.6.3
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,6 +19,47 @@ SET time_zone = "+00:00";
 --
 -- Database: `playitforward`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `journal`
+--
+
+CREATE TABLE IF NOT EXISTS `journal` (
+`journal_id` int(11) NOT NULL COMMENT 'unique identifier',
+  `uid` int(11) NOT NULL COMMENT 'key to identify user id',
+  `mid` int(11) NOT NULL COMMENT 'key to identify mission id',
+  `saveDate` datetime DEFAULT NULL COMMENT 'date user is assigned mission',
+  `journalTitle` varchar(5000) DEFAULT NULL COMMENT 'title of user submitted journal',
+  `journalText` varchar(5000) DEFAULT NULL COMMENT 'text of user submitted journal'
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `journal`
+--
+
+INSERT INTO `journal` (`journal_id`, `uid`, `mid`, `saveDate`, `journalTitle`, `journalText`) VALUES
+(1, 10, 0, '2015-04-14 22:35:28', 'test title from Phil', 'My missions went AWESOME. I loved it! 5/5 would recommend.'),
+(2, 10, 0, '2015-04-14 22:36:34', 'test title from Phil', 'My missions went AWESOME. I loved it! 5/5 would recommend.'),
+(3, 10, 0, '2015-04-14 22:36:52', 'test title from Phil', 'My missions went AWESOME. I loved it! 5/5 would recommend.'),
+(4, 10, 0, '2015-04-14 22:39:24', 'test title from Phil', 'My missions went AWESOME. I loved it! 5/5 would recommend.'),
+(5, 10, 0, '2015-04-14 22:39:37', 'test title from Phil', 'My missions went AWESOME. I loved it! 5/5 would recommend.'),
+(6, 10, 0, '2015-04-14 22:40:44', 'my awesome mission', 'I loved the experience of talking to a stranger other than my father who left our family as soon as he found out his 3rd wife was having triplets instead of a single baby.'),
+(7, 10, 0, '2015-04-14 22:41:02', 'asdf', 'asdfasdfasdf'),
+(8, 10, 0, '2015-04-14 22:42:14', 'asdf', 'asdfasdfasdf'),
+(9, 10, 0, '2015-04-14 22:45:58', 'awesome', 'this was a fantastic missions. well done play it forward dev team. well done.'),
+(10, 10, 0, '2015-04-14 22:47:08', 'asdf', 'asdfasdf'),
+(11, 10, 0, '2015-04-14 22:59:03', 'asdf', 'asdfasdf'),
+(12, 10, 0, '2015-04-15 13:18:33', 'This bugs me', 'asfdasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'),
+(13, 10, 0, '2015-04-15 13:22:56', 'This bugs me', 'asfdasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'),
+(14, 10, 3, '2015-04-15 13:36:13', 'test title from Phil', 'this was an awesome mission'),
+(15, 10, 1, '2015-04-15 13:41:07', 'fdsaasdf', 'jkl;lkjkl;lkjlk;lkjlk;ljkk'),
+(16, 10, 5, '2015-04-15 14:05:35', 'mission5 title', 'this is my description for completing mission 5'),
+(17, 10, 5, '2015-04-15 14:07:06', 'mission5 title', 'this is my description for completing mission 5'),
+(18, 10, 5, '2015-04-15 14:07:13', 'mission5 title', 'this is my description for completing mission 5'),
+(19, 10, 5, '2015-04-15 14:27:12', 'mission5 title', 'this is my description for completing mission 5'),
+(20, 10, 5, '2015-04-15 14:27:27', 'mission5 title', 'this is my description for completing mission 5');
 
 -- --------------------------------------------------------
 
@@ -47,7 +88,9 @@ CREATE TABLE IF NOT EXISTS `login_attempts` (
 --
 
 INSERT INTO `login_attempts` (`uid`, `time`) VALUES
-(4, '1427251642');
+(4, '1427251642'),
+(10, '1428517006'),
+(10, '1428966009');
 
 -- --------------------------------------------------------
 
@@ -56,38 +99,70 @@ INSERT INTO `login_attempts` (`uid`, `time`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `missions` (
-  `mid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'unique mission id',
+`mid` int(11) NOT NULL COMMENT 'unique mission id',
   `title` varchar(255) NOT NULL COMMENT 'display title',
-  `desc` varchar(2000) NOT NULL COMMENT 'display description',
-  `experience` int(11) NOT NULL COMMENT 'experience rewarded to user on completion',
-  `isReusable` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'can mission be displayed multiple times to user',
-  PRIMARY KEY (`mid`),
-  UNIQUE KEY `mid_3` (`mid`),
-  KEY `mid` (`mid`),
-  KEY `mid_2` (`mid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `description` varchar(2000) NOT NULL COMMENT 'display description',
+  `level` int(11) NOT NULL COMMENT 'Level of mission, which determines experience gain',
+  `isReusable` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'can mission be displayed multiple times to user. 1 for reusable. 0 for not reusable.'
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `missions`
+--
+
+INSERT INTO `missions` (`mid`, `title`, `description`, `level`, `isReusable`) VALUES
+(1, 'Reflect', 'Read this awesome article about how your body language can impact your personality. <a target=''_blank'' href=''http://www.askmen.com/grooming/project/top-10-ways-to-show-confidence-with-body-language.html''>Body Language</a>', 1, 0),
+(2, 'Reflect', 'Read this cool article about the interaction between self-confidence and self-awareness! <a target=''_blank'' href=''http://www.counselingcenter.illinois.edu/self-help-brochures/self-awarenessself-care/self-confidence/''>Confidence</a>', 1, 0),
+(3, 'Reflect Bonus', 'Find an interesting article about techniques for boosting confidence in social interactions', 2, 1),
+(4, 'Say Cheese', 'Take a picture of yourself and name three physical features you like about yourself.', 2, 0),
+(5, 'Reflect', 'Take a look at this article and see how you can be successful <a target=''_blank'' href=''http://www.mindtools.com/selfconf.html''>Prepare for Success</a>', 1, 0),
+(6, 'Pat On The Back', 'Write down a list of things you like about yourself', 3, 0),
+(7, 'Tough Crowd', 'Make a (good or bad) joke in front of at least one person', 5, 1),
+(8, 'Lend a Hand', 'Help one of your friends with homework or a simple task', 6, 1),
+(9, 'Show Off Those Pearly Whites', 'Smile at someone passing by', 4, 1),
+(10, 'Connect', 'Make eye contact with someone passing by', 3, 1),
+(11, 'Everyone''s Favorite', 'Cook or bake something to share', 7, 1),
+(12, 'Power Pose', 'Ever heard of a power pose? Read this article about how they can change your life! <a target=''_blank'' href=''http://online.wsj.com/news/articles/SB10001424127887323608504579022942032641408''> Power Pose</a>', 2, 0),
+(13, 'Pass It On', 'Compliment someone (make it genuine!)', 5, 1),
+(14, 'Kick Back', 'Treat yourself to something', 4, 1),
+(15, 'Narcissist', 'Look at yourself in a mirror for 3 minutes straight (and accept your flaws)', 2, 1),
+(16, 'Meet and Greet', 'Say "hello"Â to a stranger', 5, 1),
+(17, 'Master of Trades', 'Try out something new! Spend at least 2 hours working on a hobby you''ve never tried before!', 6, 1),
+(18, 'New Horizons', 'Go to a meeting for a club or organization that you''re interested in', 8, 1),
+(19, 'Strut', 'Walk around your neighborhood with your head up', 2, 1),
+(20, 'Heart of Gold', 'Give change to a homeless person', 5, 1),
+(21, 'Besties', 'Invite someone to do something with you and follow through', 8, 1),
+(22, 'Leap of Faith', 'Do something you''ve been afraid to do', 9, 1),
+(23, 'Class Act', 'Dress fancy for no reason', 3, 1),
+(24, 'Stylist', 'Try something new with your hair', 5, 0),
+(25, 'Give Back', 'Volunteer for something', 8, 1),
+(26, 'Master of Creativity', 'Craft, make or build something', 4, 1),
+(27, 'Green Thumb', 'Take care of a plant or plant a seed and help it grow', 3, 1),
+(28, 'Date Night', 'Go for a night out (eat, watch a movie, etc.)', 5, 1),
+(29, 'Step Up', 'Give food to a homeless person', 6, 1),
+(30, 'Book Worm', 'Read a book recommended by someone and talk to them about it', 7, 1),
+(31, 'Socialite', 'Call and talk to someone on the phone for at least 30 seconds', 6, 1),
+(32, 'Smooth Talker', 'Start a conversation while waiting in line for something', 8, 1),
+(33, 'Helping Hand', 'Offer to help a stranger in need', 7, 1),
+(34, 'Branch Out', 'Speak in front of a group of people', 10, 1),
+(35, 'Comedian', 'Make a purposely bad joke in front of at least 3 people', 9, 1),
+(36, 'What Friends Are For', 'Talk to someone you trust about your insecurities', 10, 1),
+(37, 'Practice Makes Person', 'Try your hardest not to compare yourself to others all day', 6, 1),
+(38, 'Sharpen Your Skills', 'Take a class (exercise, cooking, drawing, etc.) for any length of time', 8, 0),
+(39, 'Escape', 'Take a day trip and get a change of scenery for a day', 9, 1),
+(40, 'Hermit', 'Don''t go on social media for 24 hours', 5, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usermissions`
+-- Table structure for table `suggestedmissions`
 --
 
-CREATE TABLE IF NOT EXISTS `usermissions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'unique identifier',
-  `uid` int(11) NOT NULL COMMENT 'key to identify user id',
-  `mid` int(11) NOT NULL COMMENT 'key to identify mission id',
-  `isAccepted` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'has user accepted mission',
-  `isCompleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'has user completed mission',
-  `acceptDate` date DEFAULT NULL COMMENT 'date user accepts mission',
-  `completionDate` date DEFAULT NULL COMMENT 'date user completes mission',
-  `journalTitle` varchar(5000) DEFAULT NULL COMMENT 'title of user submitted journal',
-  `journalText` varchar(5000) DEFAULT NULL COMMENT 'text of user submitted journal',
-  PRIMARY KEY (`id`),
-  KEY `uid` (`uid`),
-  KEY `uid_2` (`uid`),
-  KEY `mid` (`mid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+CREATE TABLE IF NOT EXISTS `suggestedmissions` (
+`id` int(11) NOT NULL COMMENT 'unique id',
+  `uid` int(11) NOT NULL COMMENT 'key for user id',
+  `suggestion` varchar(5000) NOT NULL COMMENT 'suggested mission'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -96,17 +171,15 @@ CREATE TABLE IF NOT EXISTS `usermissions` (
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'unique user ID',
+`uid` int(11) NOT NULL COMMENT 'unique user ID',
   `username` varchar(255) NOT NULL COMMENT 'login and display name',
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `salt` varchar(255) NOT NULL COMMENT 'hashed password',
   `avatar` varchar(255) DEFAULT NULL COMMENT 'URL to avatar - profile image',
   `level` int(11) NOT NULL DEFAULT '0' COMMENT 'user level',
-  `experience` int(11) NOT NULL DEFAULT '0' COMMENT 'user experience',
-  PRIMARY KEY (`uid`),
-  UNIQUE KEY `uid` (`uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+  `experience` int(11) NOT NULL DEFAULT '0' COMMENT 'user experience'
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -119,31 +192,145 @@ INSERT INTO `users` (`uid`, `username`, `email`, `password`, `salt`, `avatar`, `
 (6, 'Testuser3', 'Testuser3@test.com', 'c5fe1d3a3678c7d7648feaa721ecff963d07a87c2a058094ff77725ec0b05f837c28a5088083ae7638298e3fd8966cc9eb023c7404987edffe2b55ccbb2526cb', '455a82cec641af88cd4b16807dcc9ba3e8d7ce980e0ce1ee5dc866b9aeeefbeac033a712ae25ff4e61c3ba33fa05806bf541a4ebc81929205b1e2542b45b316d', NULL, 0, 0),
 (7, 'HasanIsHasan', 'HasanIsHasan@hasan.com', 'f29e90b7280124c1ff10553f0c0c9884e173a2ca062cc36b039e6a4ad495a15f98aed3e651d8c1ec0fa09fbabd8f9ea98b7b3c672730fdd74c0df633c333f444', '621b190783cde21a9a90c50a39722dda4569ebd1546d72e4d3d9a58cb203ce5348c7339950f3b639d990ad44ac8b831e3d8e746ed19f5ea11e70356329ebf1a5', NULL, 0, 0),
 (8, 'Testuser4', 'Testuser4@test.com', 'a3549b1a1519b856f03a5eab9f8d6a157c736c469dc1e938315234b19fefbceb9aa388deac263fe19fb5c91fa0369d88113f5e207631233e29d28ee6494e8f32', '04d4d2c7cc4d83c5fec23139ace8fa8093c45d766a6a78607325895d4ee5ec3575ef574a3b77201afd1c1fdf16d0229845f314e19153489d4ba326ad208f7443', NULL, 0, 0),
-(9, 'Testuser5', 'Testuser5@test.com', '46f0d834f500ce62b57909df57d6a959e2e5b55150ffb7f62b7a6c8f8e486a555423230cfcda2d82cab077566af1b728733791af936a4f3a14d4eaf14f9e0933', 'f72f06d9135215ff9059a6d213587cbe5c25e24334a0ae028d41d6ec928a9a24899f68c9ebe35f08eda221d633e2060717dc78d7d21c0e0f7abf399145c60b6b', NULL, 0, 0);
+(9, 'Testuser5', 'Testuser5@test.com', '46f0d834f500ce62b57909df57d6a959e2e5b55150ffb7f62b7a6c8f8e486a555423230cfcda2d82cab077566af1b728733791af936a4f3a14d4eaf14f9e0933', 'f72f06d9135215ff9059a6d213587cbe5c25e24334a0ae028d41d6ec928a9a24899f68c9ebe35f08eda221d633e2060717dc78d7d21c0e0f7abf399145c60b6b', NULL, 0, 0),
+(10, 'wattep', 'watterspm@gmail.com', '0014d151275e2e5502d7c092598d9351d76a908b16728760cc86da69ad8fe40baa09da6635b71b5180d4b2a459f9ec518c22fa5251f89b33f599acefb84b38dd', '4d00ea142ffe3421078974c37fc378f410657621d9f9b7a3db2d3ca1e6f2fcf4404263349cc2b9c2ffeed5fbb814e92e23dcf59e0320fd626f8416181c797536', NULL, 0, 1600),
+(11, 'Test1234', 'Test1234@gmail.com', 'ac649bc9a90465606877377cf7f31ddbe9d8ae74d863e11a75e7b54ea3ae2b63bf16fe65bde984d88ea66e5b349d3bc3fdeb858c56b0916a47bbb42570d4f4fb', '05ca88ce4d4a663ddb2d2750528e92e870a4659b35715540847a6ba2dc29eef573e7a16d2fc1c2e6876c3b2bfe93eaf0e289eb7fa705c57851d83dc58c1a6e4c', NULL, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usersuggestedmissions`
+-- Table structure for table `user_assignedmissions`
 --
 
-CREATE TABLE IF NOT EXISTS `usersuggestedmissions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'unique id',
-  `uid` int(11) NOT NULL COMMENT 'key for user id',
-  `suggestion` varchar(5000) NOT NULL COMMENT 'suggested mission',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+CREATE TABLE IF NOT EXISTS `user_assignedmissions` (
+  `uid` int(11) NOT NULL COMMENT 'key to identify user id',
+  `mid` int(11) NOT NULL COMMENT 'key to identify mission id',
+  `assignDate` datetime DEFAULT NULL COMMENT 'date user is assigned mission'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `user_assignedmissions`
+--
+
+INSERT INTO `user_assignedmissions` (`uid`, `mid`, `assignDate`) VALUES
+(10, 1, '2015-04-15 14:27:13'),
+(10, 2, '2015-04-15 14:27:13'),
+(10, 3, '2015-04-15 14:27:13'),
+(10, 4, '2015-04-15 14:27:13'),
+(11, 1, '2015-04-15 14:28:40'),
+(11, 2, '2015-04-15 14:28:40'),
+(11, 3, '2015-04-15 14:28:40'),
+(11, 4, '2015-04-15 14:28:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_completedmissions`
+--
+
+CREATE TABLE IF NOT EXISTS `user_completedmissions` (
+`id` int(11) unsigned NOT NULL,
+  `uid` int(11) NOT NULL COMMENT 'key to identify user id',
+  `mid` int(11) NOT NULL COMMENT 'key to identify mission id',
+  `completionDate` datetime DEFAULT NULL COMMENT 'datetime user completes mission',
+  `journal_id` int(11) NOT NULL COMMENT 'foreign key for journal'
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_completedmissions`
+--
+
+INSERT INTO `user_completedmissions` (`id`, `uid`, `mid`, `completionDate`, `journal_id`) VALUES
+(4, 10, 5, '2015-04-15 14:27:12', 19),
+(5, 10, 5, '2015-04-15 14:27:27', 20);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `journal`
+--
+ALTER TABLE `journal`
+ ADD PRIMARY KEY (`journal_id`), ADD KEY `uid` (`uid`), ADD KEY `uid_2` (`uid`), ADD KEY `mid` (`mid`);
+
+--
+-- Indexes for table `missions`
+--
+ALTER TABLE `missions`
+ ADD PRIMARY KEY (`mid`), ADD UNIQUE KEY `mid_3` (`mid`), ADD KEY `mid` (`mid`), ADD KEY `mid_2` (`mid`);
+
+--
+-- Indexes for table `suggestedmissions`
+--
+ALTER TABLE `suggestedmissions`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+ ADD PRIMARY KEY (`uid`), ADD UNIQUE KEY `uid` (`uid`);
+
+--
+-- Indexes for table `user_assignedmissions`
+--
+ALTER TABLE `user_assignedmissions`
+ ADD PRIMARY KEY (`uid`,`mid`), ADD KEY `uid` (`uid`), ADD KEY `uid_2` (`uid`), ADD KEY `mid` (`mid`);
+
+--
+-- Indexes for table `user_completedmissions`
+--
+ALTER TABLE `user_completedmissions`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `journal_id` (`journal_id`), ADD KEY `uid` (`uid`), ADD KEY `uid_2` (`uid`), ADD KEY `mid` (`mid`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `journal`
+--
+ALTER TABLE `journal`
+MODIFY `journal_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'unique identifier',AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `missions`
+--
+ALTER TABLE `missions`
+MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'unique mission id',AUTO_INCREMENT=41;
+--
+-- AUTO_INCREMENT for table `suggestedmissions`
+--
+ALTER TABLE `suggestedmissions`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'unique id';
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'unique user ID',AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `user_completedmissions`
+--
+ALTER TABLE `user_completedmissions`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `usermissions`
+-- Constraints for table `user_assignedmissions`
 --
-ALTER TABLE `usermissions`
-  ADD CONSTRAINT `usermissions_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`),
-  ADD CONSTRAINT `usermissions_ibfk_2` FOREIGN KEY (`mid`) REFERENCES `missions` (`mid`);
+ALTER TABLE `user_assignedmissions`
+ADD CONSTRAINT `user_assignedmissions_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `user_assignedmissions_ibfk_2` FOREIGN KEY (`mid`) REFERENCES `missions` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_completedmissions`
+--
+ALTER TABLE `user_completedmissions`
+ADD CONSTRAINT `user_completedmissions_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `user_completedmissions_ibfk_2` FOREIGN KEY (`mid`) REFERENCES `missions` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `user_completedmissions_ibfk_3` FOREIGN KEY (`journal_id`) REFERENCES `journal` (`journal_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -54,29 +54,27 @@ if(!$loggedin) {
   <div class="row">
     
         
-        <div class="col-md-12">
-        <h4>Mission Assignments</h4>
-        <div class="table-responsive">
+    <div class="col-md-12">
+      <h4>Mission Assignments</h4>
+      <div class="table-responsive">
 
               <table id="mytable" class="table table-bordred table-striped">
-                   <thead>
-				   
+                <thead>
                    <th>Level</th>
                     <th>Title</th>
                      <th>Description</th>
                       <th>Complete</th>
                        <th>Give up</th>
-                   </thead>
-    <tbody>
-    <?php echo getAssignedMissions($_SESSION['username'], $db); ?>
-    </tbody>
+                  </thead>
+                <tbody>
+                  <?php echo getAssignedMissions($_SESSION['username'], $db); ?>
+                </tbody>
         
-</table>
+              </table>
 
-<div class="clearfix"></div>                
-            </div>
-            
-        </div>
+        <div class="clearfix"></div>                
+      </div>
+    </div>
   </div>
 </div>
 
@@ -100,11 +98,9 @@ if(!$loggedin) {
 		<input name="missionId" id="missionId" class="form-control " type="hidden" value="">
 		<input name="userId" id="userId" class="form-control " type="hidden" value="<?php echo $_SESSION['uid']; ?>">
 		</div>
-		 <div class="modal-footer ">
+		<div class="modal-footer ">
 		<button type="submit" class="btn btn-warning btn-lg" style="width: 100%;">Save</button>
-    
-        
-        </div>
+    </div>
 		</form>
       </div>
          

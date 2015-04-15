@@ -5,6 +5,9 @@ include_once 'includes/functions.php';
 sec_session_start();
 
 $loggedin = login_check($db);
+if(!$loggedin) {
+  header("Location: login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
