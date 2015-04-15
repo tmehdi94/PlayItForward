@@ -259,10 +259,15 @@ function getAssignedMissions($username, $db){
 	// Get UserId:
 	$user = $db->rawQuery("SELECT u.uid FROM users u WHERE u.username = ? LIMIT 1", Array ($username));
 	$userId = $user[0]['uid'];
-	$assignedMissions = $db->rawQuery(" SELECT u.uid, m.title, m.description FROM missions m, user_assignedmissions uam, users u WHERE m.mid = uam.mid AND uam.uid = ?", Array ($userId));
+	$assignedMissionsQuery = "SELECT u.uid, m.title, m.description 
+	                          FROM missions m, user_assignedmissions uam, users u 
+	                          WHERE m.mid = uam.mid 
+	                                AND u.uid = uam.uid 
+	                                AND uam.uid = ?";
+	$assignedMissions = $db->rawQuery($assignedMissionsQuery, Array ($userId));
 	// If < 3 missions, add more until you get to three missions
-	if ($db->count <= 3) {
-		assignMissions($userId, $db);
+	if ($db->count < 3) {
+		assignMissions($userId, $db, 3 - $db->count);
 	}
 	$assignedMissions = $db->rawQuery("SELECT m.mid, m.level, m.title, m.description FROM missions m, user_assignedmissions uam WHERE m.mid = uam.mid AND uam.uid = ?", Array ($userId));
 	$format = '<tr>
@@ -282,7 +287,7 @@ function getAssignedMissions($username, $db){
 // Will improve later. For now, just assign missions the user hasn't been assigned yet
 // TODO: 1) Make it so completed non-repeatable missions aren't assigned
 //       2) Assign missions of interesting levels related to the user's level
-function assignMissions($userId, $db) {
+function assignMissions($userId, $db, $numDesired) {
 	try {
 		$db->startTransaction();
 		// Finds all mission ids that are not already assigned or completed
@@ -300,7 +305,7 @@ function assignMissions($userId, $db) {
 				)";
 		$unassignedMissions = $db->rawQuery($query, Array ($userId, $userId));
 		$insertQuery = "INSERT INTO `user_assignedmissions`(`uid`, `mid`, `assignDate`) VALUES (?, ?, NOW())";
-		for ($i = 0; $i < 3; $i++) {
+		for ($i = 0; $i < $numDesired; $i++) {
 			$insertionStatus = $db->rawQuery($insertQuery, Array ($userId, $unassignedMissions[$i]['mid']));
 		}
 		$db->commit();

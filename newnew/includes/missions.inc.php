@@ -4,7 +4,6 @@
     
 	$error_msg = "";
 if (isset($_POST['title'], $_POST['entry'], $_POST['missionId'], $_POST['userId'])) {
-	print_r($_POST);
 
 	$db->startTransaction();
 	try {
@@ -46,8 +45,7 @@ if (isset($_POST['title'], $_POST['entry'], $_POST['missionId'], $_POST['userId'
         $db->rawQuery("UPDATE users SET level = ? WHERE uid = ?", Array($newlevel, $uid));
 		$db->commit();
 		print "reached the end";
-      
-
+ 
 	} catch (Exception $e) {
 		print "Database ERROR";
 		$db->rollback();
