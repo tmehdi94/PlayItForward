@@ -251,6 +251,10 @@ function test_reward_exp($userlevel){ //This is only for debugging. Outputs expe
     }        
 }
 
+function get_level_from_exp($experience){
+    return (float)floor((sqrt(.008*(float)$experience + 1) - 1)/2); //add 1 when we no longer 0 index
+}
+
 function getAssignedMissions($username, $db){
 	// Get UserId:
 	$user = $db->rawQuery("SELECT u.uid FROM users u WHERE u.username = ? LIMIT 1", Array ($username));
