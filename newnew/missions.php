@@ -79,62 +79,58 @@ if(!$loggedin) {
 </div>
 
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-      <div class="modal-dialog">
+  <div class="modal-dialog">
     <div class="modal-content">
-          <div class="modal-header">
+      <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
         <h4 class="modal-title custom_align" id="Heading">Journal Entry</h4>
       </div>
-          <div class="modal-body">
-          <form action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>" 
-                method="post" 
-                name="mission_complete"
-				id="mission_complete">
-        <div class="form-group">        
-        <input name="title" id="title" class="form-control " type="text" placeholder="Give your journal entry a title...">
-        </div>
-        <div class="form-group">
-        <textarea name="entry" id="entry" rows="2" class="form-control" placeholder="Write about your mission..."></textarea>
-		<input name="missionId" id="missionId" class="form-control " type="hidden" value="">
-		<input name="userId" id="userId" class="form-control " type="hidden" value="<?php echo $_SESSION['uid']; ?>">
-		</div>
-		<div class="modal-footer ">
-		<button type="submit" class="btn btn-warning btn-lg" style="width: 100%;">Save</button>
-    </div>
-		</form>
+      <div class="modal-body">
+        <form action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>" 
+            method="post" 
+            name="mission_complete"
+    				id="mission_complete">
+            <div class="form-group">        
+              <input name="title" id="title" class="form-control " type="text" placeholder="Give your journal entry a title...">
+            </div>
+            <div class="form-group">
+              <textarea name="entry" id="entry" rows="2" class="form-control" placeholder="Write about your mission..."></textarea>
+        		  <input name="missionId" id="missionId" class="form-control " type="hidden" value="">
+        		  <input name="userId" id="userId" class="form-control " type="hidden" value="<?php echo $_SESSION['uid']; ?>">
+        		</div>
+        		<div class="modal-footer ">
+        		  <button type="submit" class="btn btn-warning btn-lg" style="width: 100%;">Save</button>
+            </div>
+        </form>
       </div>
          
-        
-      </div>
-        </div>
-    <!-- /.modal-content --> 
-  </div>
-      <!-- /.modal-dialog --> 
     </div>
-    
-    
-    
-    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-      <div class="modal-dialog">
+  </div>
+    <!-- /.modal-content --> 
+</div>
+
+
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
-          <div class="modal-header">
+      <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
         <h4 class="modal-title custom_align" id="Heading">Give up?</h4>
       </div>
       <div class="modal-body">
        
-       <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to give up on this mission?</div>
+        <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to give up on this mission?</div>
        
       </div>
-        <div class="modal-footer ">
-          <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
-        </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+      </div>
     </div>
     <!-- /.modal-content --> 
   </div>
-      <!-- /.modal-dialog --> 
-    </div>
+  <!-- /.modal-dialog --> 
+</div>
 <!-- END testing  -PHIL -->
 
 

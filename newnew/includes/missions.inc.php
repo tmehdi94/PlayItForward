@@ -2,7 +2,6 @@
 	include_once 'dbConnect.php';
 	$error_msg = "";
 if (isset($_POST['title'], $_POST['entry'], $_POST['missionId'], $_POST['userId'])) {
-	print_r($_POST);
 
 	$db->startTransaction();
 	try {
@@ -35,7 +34,6 @@ if (isset($_POST['title'], $_POST['entry'], $_POST['missionId'], $_POST['userId'
 			SET experience = experience + 100
 			WHERE uid = ?", Array ($uid));
 		$db->commit();
-		print "reached the end";
 
 	} catch (Exception $e) {
 		print "Database ERROR";
