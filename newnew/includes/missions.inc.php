@@ -44,7 +44,6 @@ if (isset($_POST['title'], $_POST['entry'], $_POST['missionId'], $_POST['userId'
         $newlevel = get_level_from_exp($totalexp[0]['experience']);
         $db->rawQuery("UPDATE users SET level = ? WHERE uid = ?", Array($newlevel, $uid));
 		$db->commit();
-		print "reached the end";
  
 	} catch (Exception $e) {
 		print "Database ERROR";

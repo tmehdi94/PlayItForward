@@ -257,8 +257,9 @@ function get_level_from_exp($experience){
 
 function getAssignedMissions($username, $db){
 	// Get UserId:
-	$user = $db->rawQuery("SELECT u.uid FROM users u WHERE u.username = ? LIMIT 1", Array ($username));
+	$user = $db->rawQuery("SELECT u.uid, u.level FROM users u WHERE u.username = ? LIMIT 1", Array ($username));
 	$userId = $user[0]['uid'];
+	$userLevel = $user[0]['level'];
 	$assignedMissionsQuery = "SELECT u.uid, m.title, m.description 
 	                          FROM missions m, user_assignedmissions uam, users u 
 	                          WHERE m.mid = uam.mid 
@@ -267,9 +268,9 @@ function getAssignedMissions($username, $db){
 	$assignedMissions = $db->rawQuery($assignedMissionsQuery, Array ($userId));
 	// If < 3 missions, add more until you get to three missions
 	if ($db->count < 3) {
-		assignMissions($userId, $db, 3 - $db->count);
+		assignMissions($userId, $userLevel, $db, 3 - $db->count);
 	}
-	$assignedMissions = $db->rawQuery("SELECT m.mid, m.level, m.title, m.description FROM missions m, user_assignedmissions uam WHERE m.mid = uam.mid AND uam.uid = ?", Array ($userId));
+	$assignedMissions = $db->rawQuery("SELECT m.mid, m.level, m.title, m.description FROM missions m, user_assignedmissions uam WHERE m.mid = uam.mid AND uam.uid = ? ORDER BY m.level ASC", Array ($userId));
 	$format = '<tr>
     <td>%d</td>
     <td>%s</td>
@@ -285,9 +286,8 @@ function getAssignedMissions($username, $db){
 }
 
 // Will improve later. For now, just assign missions the user hasn't been assigned yet
-// TODO: 1) Make it so completed non-repeatable missions aren't assigned
-//       2) Assign missions of interesting levels related to the user's level
-function assignMissions($userId, $db, $numDesired) {
+// TODO: Make assignment of missions random. (Right now missions are repeated)
+function assignMissions($userId, $userLevel, $db, $numDesired) {
 	try {
 		$db->startTransaction();
 		// Finds all mission ids that are not already assigned or completed
@@ -302,11 +302,14 @@ function assignMissions($userId, $db, $numDesired) {
 				    SELECT m.mid
 				    FROM missions m, user_completedmissions ucm
 				    WHERE (m.mid = ucm.mid AND ucm.uid = ?) 
-				)";
-		$unassignedMissions = $db->rawQuery($query, Array ($userId, $userId));
+				      AND m.isReusable = 0
+				) AND m.level >= ?-2 AND ?+2 >= m.level";
 		$insertQuery = "INSERT INTO `user_assignedmissions`(`uid`, `mid`, `assignDate`) VALUES (?, ?, NOW())";
-		for ($i = 0; $i < $numDesired; $i++) {
-			$insertionStatus = $db->rawQuery($insertQuery, Array ($userId, $unassignedMissions[$i]['mid']));
+		for ($i = 0; $i < $numDesired; $i += 1) {
+			$unassignedMissions = $db->rawQuery($query, Array ($userId, $userId, $userLevel, $userLevel)); //, $userLevel, $userLevel));
+			if ($db->count == 0) break;
+			$toAdd = array_rand($unassignedMissions, 1);
+			$insertionStatus = $db->rawQuery($insertQuery, Array ($userId, $unassignedMissions[$toAdd]['mid']));
 		}
 		$db->commit();
 	} catch (Exception $e) {
