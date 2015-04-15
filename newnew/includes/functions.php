@@ -317,3 +317,24 @@ function assignMissions($userId, $userLevel, $db, $numDesired) {
 		$db->rollback();
 	}
 }
+
+// Input: userId
+// Output: most recent journal entry
+function getMostRecentJournalEntry($userId, $db){
+	try {
+		$query = "  SELECT j.journalTitle, j.journalText, j.saveDate
+					FROM journal j, users u
+					WHERE j.uid = u.uid AND
+					     u.uid = ?
+					ORDER BY j.saveDate DESC
+					LIMIT 1";
+		$journal = $db->rawQuery($query, Array($userId));
+		if ($db->count == 1){
+			return $journal[0]['journalTitle'] . ": " . $journal[0]['journalText'];
+		} else {
+			return "No journals yet. Complete a mission and you'll see your most recent journal entry here!";
+		}
+	} catch (Exception $e) {
+		print "Database error!";
+	}
+}
