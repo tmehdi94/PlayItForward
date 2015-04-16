@@ -67,7 +67,7 @@ $user = $db->getOne("users");
 	  </div>
       <div class="col-lg-9 col-xs-6 mix">
 		<h3>Current Level: <?php echo $user['level']; ?></h3>
-        Debugging:
+       <!-- Debugging:
         <?php test_reward_exp($user['level']) ?><!-- This is for debugging and testing, so it's completely nonessential-->
         <!--Prints EXP Progress-->
 		<h3>Experience Needed: <?php echo get_exp_progress($user['experience'], $user['level']); ?> /

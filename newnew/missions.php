@@ -52,8 +52,24 @@ if(!$loggedin) {
 
 <div class="container">
   <div class="row">
-    
-        
+  <div class="col-md-12">
+     <?php
+        if (!empty($message)) {
+            echo $message;
+		?>
+			</div>
+		<?php
+        } else {
+        ?>
+			<div class="alert alert-warning" role="alert">
+			<strong>Hey there!</strong> Select a mission to complete!
+			</div>
+		<?php
+		} 
+		?>
+       </div>
+	  </div>
+   <div class="row">
     <div class="col-md-12">
       <h4>Mission Assignments</h4>
       <div class="table-responsive">
@@ -133,51 +149,6 @@ if(!$loggedin) {
 </div>
 <!-- END testing  -PHIL -->
 
-
-
-<div id="about_section_2">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6">
-        <h4><i class="fa fa-graduation-cap fa-2x pull-left"></i> Lorem ipsum dolor sit amet, consectetuer adipiscing elit</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.</p>
-      </div>
-      <div class="col-lg-6">
-        <h4><i class="fa fa-trophy fa-2x pull-left"></i> Cum socis natoque penatibus et magnis dis</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.</p>
-      </div>
-      <div class="col-lg-6">
-        <h4><i class="fa fa-globe fa-2x pull-left"></i> Aenean commodo ligula eget dolor aenean massa</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.</p>
-      </div>
-      <div class="col-lg-6">
-        <h4><i class="fa fa-language fa-2x pull-left"></i> Ipsum dolor sit amet, consectetuer adipiscing elit</h4>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.</p>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Our clients Section -->
-<div id="section_header">
-  <h2><span>Our</span> clients</h2>
-</div>
-<div id="clients">
-  <div class="container">
-    <div class="row centered">
-      <div class="col-lg-8 col-lg-offset-2">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad.</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-2"> <img src="images/client1.jpg" class="img-responsive"> </div>
-      <div class="col-lg-2"> <img src="images/client2.jpg" class="img-responsive"> </div>
-      <div class="col-lg-2"> <img src="images/client3.jpg" class="img-responsive"> </div>
-      <div class="col-lg-2"> <img src="images/client4.jpg" class="img-responsive"> </div>
-      <div class="col-lg-2"> <img src="images/client5.jpg" class="img-responsive"> </div>
-      <div class="col-lg-2"> <img src="images/client6.jpg" class="img-responsive"> </div>
-    </div>
-  </div>
-</div>
 <!-- Footer -->
 <div id="footerwrap">
   <div class="container">
