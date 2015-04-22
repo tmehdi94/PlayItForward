@@ -1,9 +1,17 @@
+<?php
+include_once 'includes/dbConnect.php';
+include_once 'includes/functions.php';
+
+sec_session_start();
+
+$loggedin = login_check($db);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Colibri | Contact us</title>
+<title>Play It Forward | Contact us</title>
 <!-- Bootstrap -->
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
 <!-- Font Awesome  -->
@@ -19,13 +27,10 @@
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand" href="index.html"><i class="fa fa-sun-o"></i> Colibri</a> </div>
+      <a class="navbar-brand" href="index.php"><i class="fa fa-sun-o"></i> Play It Forward</a> </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About us</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li class="active"><a href="contact.html">Contact us</a></li>
+        <?php echo navigation("contact", $loggedin); ?>
       </ul>
     </div>
   </div>
@@ -39,9 +44,7 @@
   <div class="container">
     <div class="col-md-6">
       <h3>Contact info</h3>
-      <p><span>Address:</span> 321 Awesome Street, New York, NY 17022</p>
-      <p><span>Email:</span> info@companyname.com</p>
-      <p><span>Phone:</span> +1 800 123 1234</p>
+      <p><span>Email:</span> playitforward.thuglife@gmail.com</p>
     </div>
     <div class="col-md-6">
       <h3>Get in touch</h3>

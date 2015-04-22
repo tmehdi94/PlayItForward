@@ -68,7 +68,7 @@ $loggedin = login_check($db);
           <li> <img src="images/slides/slide3.jpg" alt="">
             <div class="caption">
               <h1>Keep track of your progress<span>!</span></h1>
-              <p>Record a journal entry after every mission and see how far you've came.</p>
+              <p>Record a journal entry after every mission and see how far you've come.</p>
               <a href="login.php" class="btn">Join now</a> </div>
           </li>
         </ul>
@@ -100,17 +100,17 @@ $loggedin = login_check($db);
   <div class="container">
     <div class="row">
       <div class="col-lg-4 centered"> <i class="fa fa-gears fa-3x"></i>
-        <h3>Select missions to complete</h3>
-        <p>Once you log in, you have an option to select from a list of missions. Choose whatever missions you are most comfortable.</p>
-        <a href="faq.php" class="btn">More info</a> </div>
+        <h3>What is all this?</h3>
+        <p>This is a site designed to guide you to be more outgoing and confident.</p>
+        <a href="FAQ.php" class="btn">More info</a> </div>
       <div class="col-lg-4 centered"> <i class="fa fa-line-chart fa-3x"></i>
-        <h3>Level up in confidence</h3>
-        <p>Once you have completed enough missions, you level up and can take on more challenging missions!</p>
-        <a href="login.php" class="btn">Join now</a> </div>
+        <h3>Join Now!</h3>
+        <p>Once you log in, you have an option to select from a list of missions. Choose whatever missions you are most comfortable.</p>
+        <a href="login.php" class="btn">Login/Sign-Up</a> </div>
       <div class="col-lg-4 centered"> <i class="fa fa-pencil fa-3x"></i>
-        <h3>Keep track of how far you came</h3>
-        <p>Write a journal entry after every completed mission, which you can view at any time. See how much progress you made since you started!</p>
-        <a href="faq.php" class="btn">Got questions?</a> </div>
+        <h3>Questions? Concerns?</h3>
+        <p>We're always ready to answer questions and hear suggestions!</p>
+        <a href="contact.php" class="btn">Contact Us</a> </div>
     </div>
   </div>
 </div>

@@ -215,6 +215,12 @@ function navigation($currentpage, $loggedin) {
 			$nav .= '<li><a href="login.php">Login/Register</a></li>';
 		}
 	}
+    
+    if ($currentpage == "contact") {
+		$nav .= '<li class="active"><a href="contact.php">Contact Us</a></li>';
+	} else {
+		$nav .= '<li><a href="contact.php">Contact Us</a></li>';
+	}
 
 	return $nav;
 }

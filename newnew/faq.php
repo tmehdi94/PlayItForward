@@ -51,7 +51,9 @@ $loggedin = login_check($db);
         </div>
         <div class="row">
             <h3>Why should I use <span>Play It Forward?</span></h3>
-            <p>If you feel uncomfortable in social situations or want to be more outgoing. -ADD MORE-</p>
+            <p>If you feel uncomfortable in social situations or want to be more outgoing, this program is for you. We hope
+            you'll find yourself challenged and motivated to make a change in your life for the better. Step outside your shell
+            and give it a shot!</p>
         </div>
         <div class="row">
             <h3>How does it work?</h3>
@@ -78,11 +80,6 @@ $loggedin = login_check($db);
             missions for a level. These are similar to lower-level missions, but award
             less experience, so you have to complete more of them to level up. We want 
             to make sure you're always moving forward at your own pace.</p>
-        </div>
-        <div class="row">
-            <h3>Why does this page look like garbage?</h3>
-            <p>Jake doesn't know how to CSS or format properly. Luckily this page is 
-            basically just text</p>
         </div>
     </div>
 </div>
