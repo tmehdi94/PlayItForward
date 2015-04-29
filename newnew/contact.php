@@ -48,14 +48,25 @@ $loggedin = login_check($db);
     </div>
     <div class="col-md-6">
       <h3>Get in touch</h3>
-      <form>
+      <?php if ( isset($_GET['error']) && $_GET["error"] == 1) { ?>
+			<div class="alert alert-danger" role="alert">
+			<strong>Error Sending Form!</strong> Please make sure all fields are filled in.<br/>
+			</div>
+		<?php
+        } else if (isset($_GET['success']) && $_GET['success'] == 1) {
+        ?>
+        <div class="alert alert-info" role="alert">
+        <strong>We've got mail!</strong> You can expect a response in three to five business days.</div>
+        <?php } ?>
+        
+      <form id="contact_form" action="includes/processMail.php" method="post" name="contact_form">
         <div class="form_details">
-          <input type="text" class="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
-          <input type="text" class="text" value="Email Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}">
-          <input type="text" class="text" value="Subject" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Subject';}">
-          <textarea value="Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
+          <input name = "name" type="text" class="text" value="name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
+          <input name = "address" type="text" class="text" value="address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}">
+          <input name = "subject" type="text" class="text" value="subject" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Subject';}">
+          <textarea name = "message" value="message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
           <div class="clearfix"> </div>
-          <button class="btn" type="submit">Send Message</button>
+          <button class="btn" type="submit">Send Us Mail</button>
         </div>
       </form>
     </div>
