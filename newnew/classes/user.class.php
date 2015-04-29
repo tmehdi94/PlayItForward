@@ -1,5 +1,5 @@
 <?php
-include_once 'classes/mission.class.php';
+include_once 'mission.class.php';
 
 class User
 {

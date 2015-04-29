@@ -1,6 +1,6 @@
 <?php
 // adapted from http://www.wikihow.com/Create-a-Secure-Login-Script-in-PHP-and-MySQL
-include_once 'classes\user.class.php';
+include_once '/../classes/user.class.php';
 
 function sec_session_start() {
     $session_name = 'sec_session_id';   // Set a custom session name

@@ -60,6 +60,12 @@ $loggedin = login_check($db);
         <?php } ?>
         
       <form id="contact_form" action="includes/processMail.php" method="post" name="contact_form">
+        <select name="type" type = "text" class = "text">
+            <option value="">Why are you contacting us?</option>
+            <option value="general">General Question</option>
+            <option value="help">Site Help</option>
+            <option value="suggest">Mission Suggestion</option>
+        </select>
         <div class="form_details">
           <input name = "name" type="text" class="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
           <input name = "address" type="text" class="text" value="Email Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}">
