@@ -1,7 +1,7 @@
 <?php
 	include_once 'dbConnect.php';
     include_once 'includes/functions.php'; //Include EXP helper functions
-    include_once 'classes/user.php';
+    include_once 'classes/user.class.php';
 	$message = "";
 if (isset($_POST['title'], $_POST['entry'], $_POST['missionId'], $_POST['userId'])) {
 	$user = new User($_POST['userId'], $db);
