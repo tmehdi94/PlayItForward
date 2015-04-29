@@ -83,7 +83,7 @@ if(!$loggedin) {
                        <th>Give up</th>
                   </thead>
                 <tbody>
-                  <?php echo getAssignedMissions($_SESSION['username'], $db); ?>
+                  <?php echo getAssignedMissions($_SESSION['uid'], $db); ?>
                 </tbody>
         
               </table>

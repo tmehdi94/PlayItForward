@@ -1,5 +1,6 @@
 <?php
 // adapted from http://www.wikihow.com/Create-a-Secure-Login-Script-in-PHP-and-MySQL
+include_once 'classes\user.php';
 
 function sec_session_start() {
     $session_name = 'sec_session_id';   // Set a custom session name
@@ -242,7 +243,7 @@ function get_reward_exp($missionlevel, $userlevel){
     $range = 2; //Tweakable
     if ($userlevel - $range > $missionlevel || $userlevel + $range < $missionlevel){
 		return 0;
-	}else{
+	} else {
 		return floor(sqrt($missionlevel)*1000);
 	}
 }
@@ -261,22 +262,11 @@ function get_level_from_exp($experience){
     return (float)floor((sqrt(.008*(float)$experience + 1) - 1)/2); //add 1 when we no longer 0 index
 }
 
-function getAssignedMissions($username, $db){
-	// Get UserId:
-	$user = $db->rawQuery("SELECT u.uid, u.level FROM users u WHERE u.username = ? LIMIT 1", Array ($username));
-	$userId = $user[0]['uid'];
-	$userLevel = $user[0]['level'];
-	$assignedMissionsQuery = "SELECT u.uid, m.title, m.description 
-	                          FROM missions m, user_assignedmissions uam, users u 
-	                          WHERE m.mid = uam.mid 
-	                                AND u.uid = uam.uid 
-	                                AND uam.uid = ?";
-	$assignedMissions = $db->rawQuery($assignedMissionsQuery, Array ($userId));
-	// If < 3 missions, add more until you get to three missions
-	if ($db->count < 3) {
-		assignMissions($userId, $userLevel, $db, 3 - $db->count);
-	}
-	$assignedMissions = $db->rawQuery("SELECT m.mid, m.level, m.title, m.description FROM missions m, user_assignedmissions uam WHERE m.mid = uam.mid AND uam.uid = ? ORDER BY m.level ASC", Array ($userId));
+function getAssignedMissions($userId, $db){
+	// Get UserId:''
+	$user = new User($userId, $db);  // <--- Look! It's an object!! :-)
+	$assignedMissions = $user->getAssignedMissions($db);
+
 	$format = '<tr>
     <td>%d</td>
     <td>%s</td>
@@ -291,56 +281,16 @@ function getAssignedMissions($username, $db){
 	return $returnString;
 }
 
-// Will improve later. For now, just assign missions the user hasn't been assigned yet
-// TODO: Make assignment of missions random. (Right now missions are repeated)
-function assignMissions($userId, $userLevel, $db, $numDesired) {
-	try {
-		$db->startTransaction();
-		// Finds all mission ids that are not already assigned or completed
-		$query = "SELECT m.mid
-				FROM missions m
-				WHERE m.mid NOT IN
-				(
-				    SELECT m.mid
-					FROM missions m, user_assignedmissions uam
-					WHERE (m.mid = uam.mid AND uam.uid = ?) 
-				    UNION
-				    SELECT m.mid
-				    FROM missions m, user_completedmissions ucm
-				    WHERE (m.mid = ucm.mid AND ucm.uid = ?) 
-				      AND m.isReusable = 0
-				) AND m.level >= ?-2 AND ?+2 >= m.level";
-		$insertQuery = "INSERT INTO `user_assignedmissions`(`uid`, `mid`, `assignDate`) VALUES (?, ?, NOW())";
-		for ($i = 0; $i < $numDesired; $i += 1) {
-			$unassignedMissions = $db->rawQuery($query, Array ($userId, $userId, $userLevel, $userLevel)); //, $userLevel, $userLevel));
-			if ($db->count == 0) break;
-			$toAdd = array_rand($unassignedMissions, 1);
-			$insertionStatus = $db->rawQuery($insertQuery, Array ($userId, $unassignedMissions[$toAdd]['mid']));
-		}
-		$db->commit();
-	} catch (Exception $e) {
-		print "Database error!";
-		$db->rollback();
-	}
-}
 
 // Input: userId
 // Output: most recent journal entry
 function getMostRecentJournalEntry($userId, $db){
-	try {
-		$query = "  SELECT j.journalTitle, j.journalText, j.saveDate
-					FROM journal j, users u
-					WHERE j.uid = u.uid AND
-					     u.uid = ?
-					ORDER BY j.saveDate DESC
-					LIMIT 1";
-		$journal = $db->rawQuery($query, Array($userId));
-		if ($db->count == 1){
-			return $journal[0]['journalTitle'] . ": " . $journal[0]['journalText'];
-		} else {
-			return "No journals yet. Complete a mission and you'll see your most recent journal entry here!";
-		}
-	} catch (Exception $e) {
-		print "Database error!";
+	$user = new User($userId, $db);
+	$journalEntry = $user->getMostRecentJournalEntry($db);
+	if ($journalEntry == null) {
+		return "No journals yet. Complete a mission and you'll see your most recent journal entry here!";
+	} else {
+		// Leave the front-end code to dress up the information from the journal:
+		return $journalEntry['journalTitle'] . '<br />' . $journalEntry['journalText'];
 	}
 }
