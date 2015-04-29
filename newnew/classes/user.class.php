@@ -1,5 +1,5 @@
 <?php
-include_once 'classes/mission.php';
+include_once 'classes/mission.class.php';
 
 class User
 {
@@ -31,9 +31,6 @@ class User
     }
     
     public function getAssignedMissions($db) {
-        // $user = $db->rawQuery("SELECT u.uid, u.level FROM users u WHERE u.username = ? LIMIT 1", Array ($this->username));
-        // $userId = $user[0]['uid'];
-        // $userLevel = $user[0]['level'];
         $assignedMissionsQuery = "SELECT uam.mid 
                                   FROM user_assignedmissions uam 
                                   WHERE uam.uid = ?";
@@ -134,6 +131,20 @@ class User
             $db->rollback();
         }
         return $gainedEXP;
+    }
+
+    public function getJournals($db){
+        try {
+            $query = "  SELECT j.journalTitle, j.journalText, j.saveDate
+                        FROM journal j, users u
+                        WHERE j.uid = u.uid AND
+                             u.uid = ?
+                        ORDER BY j.saveDate DESC";
+            $journals = $db->rawQuery($query, Array($this->userId));
+            return $journals;
+        } catch (Exception $e) {
+            print "Database error!";
+        }
     }
 
     public function getMostRecentJournalEntry($db){

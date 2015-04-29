@@ -1,6 +1,6 @@
 <?php
 // adapted from http://www.wikihow.com/Create-a-Secure-Login-Script-in-PHP-and-MySQL
-include_once 'classes\user.php';
+include_once 'classes\user.class.php';
 
 function sec_session_start() {
     $session_name = 'sec_session_id';   // Set a custom session name
@@ -263,9 +263,8 @@ function get_level_from_exp($experience){
 }
 
 function getAssignedMissions($userId, $db){
-	// Get UserId:''
 	$user = new User($userId, $db);  // <--- Look! It's an object!! :-)
-	$assignedMissions = $user->getAssignedMissions($db);
+	$assignedMissions = $user->getAssignedMissions($db);  // TODO: Make getAssignedMissions return Mission objects rather than a database query result.
 
 	$format = '<tr>
     <td>%d</td>
@@ -276,7 +275,7 @@ function getAssignedMissions($userId, $db){
     </tr>';
 	$returnString = "";
 	foreach ($assignedMissions as $mission){
-		$returnString .= sprintf($format, $mission['level'], $mission['title'], $mission['description'], $mission['mid'], $mission['mid']);
+		$returnString .= sprintf($format, $mission['level'], $mission['title'], $mission['description'], $mission['mid'], $mission['mid'], $mission['mid']);
 	}
 	return $returnString;
 }
@@ -293,4 +292,26 @@ function getMostRecentJournalEntry($userId, $db){
 		// Leave the front-end code to dress up the information from the journal:
 		return $journalEntry['journalTitle'] . '<br />' . $journalEntry['journalText'];
 	}
+}
+
+// Input: $userId, $db
+// Output: List of journal entries ordered with most recent first
+function getJournals($userId, $db){
+	$user = new User($userId, $db);
+	$journals = $user->getJournals($db);
+	// Dress up journals job left for someone else:
+	$format = '<div class="col-md-6">
+		<h3>
+		<span class="pull-left">%s</span>
+		<span class="pull-right"><em>%s</em></span>
+		</h3>
+		<br/>
+		<p>%s</p>
+	</div>
+	';
+	$result = "";
+	foreach($journals as $journalEntry){
+		$result .= sprintf($format, $journalEntry['journalTitle'], $journalEntry['saveDate'], $journalEntry['journalText']);
+	}
+	return $result;
 }

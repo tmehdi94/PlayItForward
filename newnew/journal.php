@@ -44,38 +44,7 @@ if(!$loggedin) {
 </div>
 <div id="welcome">
   <div class="container">
-    <div class="col-md-6">
-		<h3>
-		<span class="pull-left">Entry 1 Title</span>
-		<span class="pull-right"><em>Date 1</em></span>
-		</h3>
-		<br/>
-		<p>Lorem ipsum dolor sit amet, quo meis audire placerat eu, te eos porro veniam. An everti maiorum detracto mea. Eu eos dicam voluptaria, erant bonorum albucius et per, ei sapientem accommodare est. Saepe dolorum constituam ei vel. Te sit malorum ceteros repudiandae, ne tritani adipisci vis.</p>
-	</div>
-	<div class="col-md-6">
-		<h3>
-		<span class="pull-left">Entry 2 Title</span>
-		<span class="pull-right"><em>Date 2</em></span>
-		</h3>
-		<br/>
-		<p>Lorem ipsum dolor sit amet, quo meis audire placerat eu, te eos porro veniam. An everti maiorum detracto mea. Eu eos dicam voluptaria, erant bonorum albucius et per, ei sapientem accommodare est. Saepe dolorum constituam ei vel. Te sit malorum ceteros repudiandae, ne tritani adipisci vis.</p>
-	</div>
-	<div class="col-md-6">
-		<h3>
-		<span class="pull-left">Entry 3 Title</span>
-		<span class="pull-right"><em>Date 3</em></span>
-		</h3>
-		<br/>
-		<p>Lorem ipsum dolor sit amet, quo meis audire placerat eu, te eos porro veniam. An everti maiorum detracto mea. Eu eos dicam voluptaria, erant bonorum albucius et per, ei sapientem accommodare est. Saepe dolorum constituam ei vel. Te sit malorum ceteros repudiandae, ne tritani adipisci vis.</p>
-	</div>
-	<div class="col-md-6">
-		<h3>
-		<span class="pull-left">Entry 4 Title</span>
-		<span class="pull-right"><em>Date 4</em></span>
-		</h3>
-		<br/>
-		<p>Lorem ipsum dolor sit amet, quo meis audire placerat eu, te eos porro veniam. An everti maiorum detracto mea. Eu eos dicam voluptaria, erant bonorum albucius et per, ei sapientem accommodare est. Saepe dolorum constituam ei vel. Te sit malorum ceteros repudiandae, ne tritani adipisci vis.</p>
-	</div>
+  	<?php echo getJournals($_SESSION["uid"], $db); ?>
   </div>
 </div>
 </div>
