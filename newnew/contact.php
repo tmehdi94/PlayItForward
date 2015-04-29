@@ -61,6 +61,9 @@ $loggedin = login_check($db);
         
       <form id="contact_form" action="includes/processMail.php" method="post" name="contact_form">
         <div class="form_details">
+          <input name = "name" type="text" class="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
+          <input name = "address" type="text" class="text" value="Email Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}">
+          <input name = "subject" type="text" class="text" value="Subject" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Subject';}">
           <textarea name = "message" value="message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
           <div class="clearfix"> </div>
           <button class="btn" type="submit">Send Us Mail</button>
