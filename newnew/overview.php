@@ -58,8 +58,7 @@ $user = $db->getOne("users");
 		<?php if ($user['avatar'] == NULL) { ?>
 				"images/default-avatar.png" 
 		<?php } else { ?>
-				<!-- TODO: Change to URL of user avatar-->
-				"[the user image]" 
+				"<?php echo getAvatar($_SESSION['uid'], $db); ?>"
 		<?php } ?>
 		class="img-responsive" alt="avatar" />
 		<br/>
@@ -80,24 +79,6 @@ $user = $db->getOne("users");
 			</div>
 		</div>
         
-		<h3>Accepted Missions:  </h3>
-			<!-- TODO: Write function to output accepted missions -->
-		    <table class="table">
-			<tbody>
-				<tr class="warning">
-					<td>Mission 1</td>
-				</tr>
-				<tr class="active">
-					<td>Mission 2</td>
-				</tr>
-				<tr class="warning">
-					<td>Mission 3</td>
-				</tr>
-				<tr class="active">
-					<td>Mission 4</td>
-				</tr>
-			</tbody>
-			</table>
         <h3>Most Recent Journal Entry:</h3>
         <p>
           <?php  echo getMostRecentJournalEntry($user['uid'], $db); ?>

@@ -1,10 +1,19 @@
 <?php
 include_once 'includes/dbConnect.php';
 include_once 'includes/functions.php';
+include_once 'includes/preferences.inc.php';
 
-sec_session_start();
+//sec_session_start();
 
 $loggedin = login_check($db);
+
+if (!$loggedin) {
+	header("Location: login.php");
+}
+
+$db->where ("username", $_SESSION['username']);
+$user = $db->getOne("users");
+
 ?>
 
 
@@ -13,7 +22,7 @@ $loggedin = login_check($db);
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Colibri | Preferences</title>
+<title>Play It Forward | Preferences</title>
 <!-- Bootstrap -->
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
 <!-- Font Awesome  -->
@@ -44,29 +53,51 @@ $loggedin = login_check($db);
     <h2><span>Preferences</span> </h2>
   </div>
 </div>
-<div class="contact">
+<div id="about_section_1">
   <div class="container">
-    <div class="col-md-6">
-      <h3>Contact info</h3>
-      <p><span>Address:</span> 321 Awesome Street, New York, NY 17022</p>
-      <p><span>Email:</span> info@companyname.com</p>
-      <p><span>Phone:</span> +1 800 123 1234</p>
-    </div>
-    <div class="col-md-6">
-      <h3>Get in touch</h3>
-      <form>
-        <div class="form_details">
-          <input type="text" class="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
-          <input type="text" class="text" value="Email Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}">
-          <input type="text" class="text" value="Subject" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Subject';}">
-          <textarea value="Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
-          <div class="clearfix"> </div>
-          <button class="btn" type="submit">Send Message</button>
-        </div>
-      </form>
-    </div>
-  </div>
+    <div class="row">
+	<?php if ( isset($_GET['success']) && $_GET["success"] == 1) { ?>
+		<div class="col-md-6 col-md-offset-3 alert alert-success" role="alert">
+			<strong>You have updated your preferences!</strong>
+		</div>
+	<?php
+	} else if ( isset($error_msg) && ($error_msg != "")) { ?>
+		<div class="col-md-6 col-md-offset-3 alert alert-warning" role="alert">
+			<strong>Errors were encountered! <?php echo $error_msg; ?></strong>
+		</div>
+	<?php } ?>
+	</div>
+	<div class="row">
+      <div class="col-lg-3 col-xs-3 mix col-lg-offset-3 col-xs-offset-3"> 
+		  <h3>Change Avatar</h3>
+		    <img src=
+			<?php if ($user['avatar'] == NULL) { ?>
+					"images/default-avatar.png" 
+			<?php } else { ?>
+					"<?php echo getAvatar($_SESSION['uid'], $db); ?>"
+			<?php } ?>
+			class="img-responsive" alt="avatar" />
+			<br/>
+		<h3 class="text-center"><b><?php echo $user['username']; ?></b></h3>
+			<form enctype='multipart/form-data' action='<?php echo esc_url($_SERVER['PHP_SELF']); ?>' method='post'>
+			<label>Choose a new profile picture</label>
+			<input type='file' name='avatar' />
+			<input type='submit' value='upload' />
+			<br/>
+			</form>
+	  </div>
+	  <div class="col-lg-3 col-xs-3 mix"> 
+		  <h3>Update Email Address</h3>
+		   <div class="form_details">
+		   <form action='<?php echo esc_url($_SERVER['PHP_SELF']); ?>' method='post'>
+          <input name="email" id="email" type="text" class="text" value="Email Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}" title="Enter primary email address" >
+		  <button class="btn" type="submit">Change Email</button>
+		  </div>
+	  </div>
+	 </div>
+	</div>
 </div>
+
 <!-- Footer -->
 <div id="footerwrap">
   <div class="container">
@@ -83,6 +114,7 @@ $loggedin = login_check($db);
     </div>
   </div>
 </div>
+
 <!-- Bootstrap core JavaScript --> 
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
