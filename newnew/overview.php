@@ -69,7 +69,7 @@ $user = $db->getOne("users");
        <!-- Debugging:
         <?php test_reward_exp($user['level']) ?><!-- This is for debugging and testing, so it's completely nonessential-->
         <!--Prints EXP Progress-->
-		<h3>Experience Needed: <?php echo get_exp_progress($user['experience'], $user['level']); ?> /
+		<h3>Experience: <?php echo get_exp_progress($user['experience'], $user['level']); ?> /
             <?php echo get_level_exp($user['level']); ?></h3> 
          <!--Bar fills with EXP percentage-->
 		<div class="progress progress-striped">
