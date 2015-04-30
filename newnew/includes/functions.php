@@ -311,7 +311,9 @@ function getJournals($userId, $db){
 	';
 	$result = "";
 	foreach($journals as $journalEntry){
-		$result .= sprintf($format, $journalEntry['journalTitle'], $journalEntry['saveDate'], $journalEntry['journalText']);
+		$d1=new DateTime($journalEntry['saveDate']);  
+		$journalDate = $d1->format('m/d/Y');
+		$result .= sprintf($format, $journalEntry['journalTitle'], $journalDate, $journalEntry['journalText']);
 	}
 	return $result;
 }
